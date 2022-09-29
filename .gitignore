@@ -1,0 +1,12 @@
+*.d
+*.o
+*.P
+*.map
+*.axf
+*.bin
+*.jlink
+*.emSession
+*.elf
+*.ind
+build/
+.gdb_history
