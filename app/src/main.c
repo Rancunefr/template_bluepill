@@ -11,13 +11,13 @@ int main()
 	int k = 0 ;
     SystemClock_Config() ;
     BSP_LED_Init() ;
-    // BSP_Console_Init() ;
+    BSP_Console_Init() ;
 
     BSP_LED_On() ;
     
 	while(1)
 	{
-        // printf("%d Hello world\r\n",i );
+        printf("Hello world \r\n" );
         BSP_LED_Toggle() ;
 	
 		for (i=0;i<5;i++)
