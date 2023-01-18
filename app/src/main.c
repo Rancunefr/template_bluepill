@@ -4,25 +4,34 @@
 
 static void SystemClock_Config() ;
 
+uint16_t flag ;
+uint16_t compteur ;	
+
+
 int main()
 {
-	int i = 0 ;
-	int j = 0 ;
-	int k = 0 ;
     SystemClock_Config() ;
+
     BSP_LED_Init() ;
-    BSP_Console_Init() ;
+
+	timer_init() ;
+	flag = 0 ;
 
     BSP_LED_On() ;
     
 	while(1)
 	{
-        printf("Hello world \r\n" );
-        BSP_LED_Toggle() ;
-	
-		for (i=0;i<5;i++)
-		for (j=0;j<255;j++)
-		for (k=0;k<255;k++);
+		if (( TIM2->SR & TIM_SR_UIF ) == TIM_SR_UIF )
+		{
+				flag ^= ( 0x01 << 10U ) ;
+				compteur = TIM2->CNT ;
+
+				// Reset UIF
+				TIM2->SR &= ~TIM_SR_UIF ;
+
+				BSP_LED_Toggle() ;
+		}
+        
 	}
 }
 

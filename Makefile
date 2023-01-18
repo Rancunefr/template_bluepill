@@ -1,6 +1,6 @@
 TARGET = cubeide
 DEBUG = 1
-OPT = -Og
+OPT = -O2
 BUILD_DIR = build
 
 C_SOURCES =  \
