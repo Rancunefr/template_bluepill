@@ -4,34 +4,20 @@
 
 static void SystemClock_Config() ;
 
-uint16_t flag ;
-uint16_t compteur ;	
-
 
 int main()
 {
     SystemClock_Config() ;
 
     BSP_LED_Init() ;
-
-	timer_init() ;
-	flag = 0 ;
+	BSP_DELAY_TIMER_Init() ;
 
     BSP_LED_On() ;
     
 	while(1)
 	{
-		if (( TIM2->SR & TIM_SR_UIF ) == TIM_SR_UIF )
-		{
-				flag ^= ( 0x01 << 10U ) ;
-				compteur = TIM2->CNT ;
-
-				// Reset UIF
-				TIM2->SR &= ~TIM_SR_UIF ;
-
+				BSP_DELAY_TIMER_ms( 1000 ) ;
 				BSP_LED_Toggle() ;
-		}
-        
 	}
 }
 

@@ -12,7 +12,7 @@ void BSP_LED_On();
 void BSP_LED_Off();
 void BSP_LED_Toggle();
 
-void attente_ms( uint32_t delai ) ;		// Attente en ms
-void timer_init() ;
+void BSP_DELAY_TIMER_Init() ;
+void BSP_DELAY_TIMER_ms( uint16_t ms ) ;
 
 #endif
