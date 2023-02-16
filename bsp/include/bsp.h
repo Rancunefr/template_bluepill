@@ -14,5 +14,6 @@ void BSP_LED_Toggle();
 
 void BSP_DELAY_TIMER_Init() ;
 void BSP_DELAY_TIMER_ms( uint16_t ms ) ;
+void BSP_PWM_TIMER_Init() ;
 
 #endif

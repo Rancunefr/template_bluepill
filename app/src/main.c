@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include <math.h>
 #include "stm32f1xx.h"
 #include "bsp.h"
 
 static void SystemClock_Config() ;
 
+float theta ;
 
 int main()
 {
@@ -11,13 +13,25 @@ int main()
 
     BSP_LED_Init() ;
 	BSP_DELAY_TIMER_Init() ;
-
+	BSP_PWM_TIMER_Init() ;
     BSP_LED_On() ;
-    
+
+	theta = 0.0 ;
+   
 	while(1)
 	{
-				BSP_DELAY_TIMER_ms( 1000 ) ;
-				BSP_LED_Toggle() ;
+				BSP_DELAY_TIMER_ms( 10 ) ;
+				// BSP_LED_Toggle() ;
+
+				theta += 0.00314 ;
+				if ( theta >= 6.28 ) 
+					theta = 0 ;
+
+
+				TIM1->CCR1 = (uint16_t) ((1+cos(theta))*200) ;
+				TIM1->CCR2 = (uint16_t) ((1+cos(2*theta))*200) ;
+				TIM1->CCR3 = (uint16_t) ((1+cos(0.5*theta))*200) ;
+				
 	}
 }
 
