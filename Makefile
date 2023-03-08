@@ -6,7 +6,12 @@ BUILD_DIR = build
 C_SOURCES =  \
 app/src/stm32f1xx_it.c \
 cmsis/device/src/system_stm32f1xx.c \
-bsp/src/bsp.c \
+bsp/src/bsp_adc.c \
+bsp/src/bsp_clock.c \
+bsp/src/bsp_led.c \
+bsp/src/bsp_pwm.c \
+bsp/src/bsp_timer.c \
+bsp/src/bsp_uart.c \
 app/src/main.c  
 
 ASM_SOURCES =  \
