@@ -4,34 +4,19 @@
 #include "bsp.h"
 
 static void SystemClock_Config() ;
-
-float theta ;
+uint16_t adc_value ;
 
 int main()
 {
+	adc_value = 0 ;
+
     SystemClock_Config() ;
+	ADC_Init();
 
-    BSP_LED_Init() ;
-	BSP_DELAY_TIMER_Init() ;
-	BSP_PWM_TIMER_Init() ;
-    BSP_LED_On() ;
-
-	theta = 0.0 ;
-   
 	while(1)
 	{
-				BSP_DELAY_TIMER_ms( 10 ) ;
-				// BSP_LED_Toggle() ;
-
-				theta += 0.00314 ;
-				if ( theta >= 6.28 ) 
-					theta = 0 ;
-
-
-				TIM1->CCR1 = (uint16_t) ((1+cos(theta))*200) ;
-				TIM1->CCR2 = (uint16_t) ((1+cos(2*theta))*200) ;
-				TIM1->CCR3 = (uint16_t) ((1+cos(0.5*theta))*200) ;
-				
+		adc_value = ADC_Read();
+    	// Do something with the ADC value		
 	}
 }
 
