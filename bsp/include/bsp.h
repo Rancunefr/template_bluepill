@@ -18,5 +18,6 @@ void BSP_PWM_TIMER_Init() ;
 void ADC_Init(void) ;
 uint16_t ADC_Read(void) ;
 
-void BSP_Console_Init() {   
+void BSP_Console_Init() ;
+
 #endif
