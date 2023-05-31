@@ -12,13 +12,11 @@ int main()
 
     SystemClock_Config() ;
 	BSP_Console_Init() ;
-	ADC_Init();
+
+	printf("coucou \n" );
 
 	while(1)
 	{
-		adc_value = ADC_Read();
-		volts = adc_value * 315 / 4095 ;
-		printf("ADC: %d (%d) \n", adc_value, volts );
 
     	// Do something with the ADC value		
 	}
