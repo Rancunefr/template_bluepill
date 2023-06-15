@@ -12,6 +12,7 @@ bsp/src/bsp_led.c \
 bsp/src/bsp_pwm.c \
 bsp/src/bsp_timer.c \
 bsp/src/bsp_uart.c \
+bsp/src/bsp_i2c.c \
 app/src/main.c  
 
 ASM_SOURCES =  \

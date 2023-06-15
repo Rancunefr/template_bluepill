@@ -49,6 +49,6 @@ void BSP_I2c_Init() {
 		// Program the I2C_CR1 register to enable 
 		// the peripheral
 		
-		I2C1->CR1 |= I2C1_CR1_PE ;
+		I2C1->CR1 |= I2C_CR1_PE ;
 
 }

@@ -13,7 +13,14 @@ int main()
     SystemClock_Config() ;
 	BSP_Console_Init() ;
 
+	BSP_I2c_Init() ;
+
 	printf("coucou \n" );
+
+	// Generate Start Condition
+	
+	I2C1->CR1 |= I2C_CR1_START ;
+
 
 	while(1)
 	{
