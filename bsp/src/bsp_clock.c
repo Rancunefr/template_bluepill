@@ -46,7 +46,7 @@ void SystemClock_Config(void)
 	RCC->CFGR &= ~RCC_CFGR_HPRE_Msk;
 	RCC->CFGR |= RCC_CFGR_HPRE_DIV1;
 
-	// Set APB1 prescaler to /2
+	// Set APB1 prescaler to /2 48000 / 2 -> 24MHz
 	RCC->CFGR &= ~RCC_CFGR_PPRE1_Msk;
 	RCC->CFGR |= RCC_CFGR_PPRE1_DIV2;
 

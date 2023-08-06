@@ -25,7 +25,7 @@ void BSP_I2c_Start() ;
 void BSP_I2c_Stop() ;
 uint8_t BSP_I2c_Read() ;
 void BSP_I2c_Write( uint8_t data ) ;
-
+void BSP_I2c_Scan(uint8_t *addresses);
 
 
 #endif

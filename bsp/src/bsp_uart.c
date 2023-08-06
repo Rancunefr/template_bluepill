@@ -16,8 +16,8 @@ void BSP_Console_Init() {
 	
 	GPIOA->CRL &= ~GPIO_CRL_CNF3_Msk ;		// RAZ
 	GPIOA->CRL &= ~GPIO_CRL_CNF2_Msk ;		// RAZ
-	GPIOA->CRL |= GPIO_CRL_CNF2_1 ;		// Reglage PA2
-	GPIOA->CRL |= GPIO_CRL_CNF3_0 ;		// Reglage PA3
+	GPIOA->CRL |= GPIO_CRL_CNF2_1 ;		// Reglage PA2 as TX
+	GPIOA->CRL |= GPIO_CRL_CNF3_0 ;		// Reglage PA3 as RX
 
 	// Enable USART clock
 	
@@ -31,6 +31,10 @@ void BSP_Console_Init() {
 
 	// Fraction : 16*0.25 = 4 
 	// Mantisse : 156
+	// USARTDIV = 156.25
+	// Input Clock for USART2 -> PCLK1 = 24MHz
+	// baudrate = Fck / (16 * USARTDIV) = 24000 / 2500 = 9600
+	// final config 9600 8N1
 	
 	USART2->BRR = 0x9C4 ;
 
