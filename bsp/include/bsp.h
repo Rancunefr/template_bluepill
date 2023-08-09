@@ -21,11 +21,11 @@ uint16_t ADC_Read(void) ;
 void BSP_Console_Init() ;
 
 void BSP_I2c_Init() ;
+void BSP_I2c_Scan(uint8_t *addresses);
 void BSP_I2c_Start() ;
 void BSP_I2c_Stop() ;
 uint8_t BSP_I2c_Read() ;
-void BSP_I2c_Write( uint8_t data ) ;
-void BSP_I2c_Scan(uint8_t *addresses);
+int BSP_I2c_Write( uint8_t data ) ;
 
 
 #endif

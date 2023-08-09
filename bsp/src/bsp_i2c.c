@@ -2,36 +2,14 @@
 #include "bsp.h"
 #include "stm32f1xx.h"
 
-void BSP_I2c_Scan(uint8_t *addresses) {
-  volatile uint16_t SR1 = 0;
-  volatile uint16_t SR2 = 0;
+void BSP_I2c_Scan(uint8_t *addresses) { // Adresse écrite sur 7 bits (sans le R/W)
   uint8_t address = 1;
-
-  while (address < 128) {
-    // reset SR1 and SR2
-    I2C1->SR1 = 0;
-    I2C1->SR2 = 0;
-    I2C1->CR1 |= I2C_CR1_START;
-    // wait for Start bit
-    while ((I2C1->SR1 & I2C_SR1_SB) != I2C_SR1_SB)
-      ;
-
-    // write address 0x10 << 1
-    I2C1->DR = address << 1;
-    // read SR1
-    SR1 = I2C1->SR1;
-    // read SR2
-    SR2 = I2C1->SR2;
-    //check if ACK/NACK
-    if ((SR1 & I2C_SR1_ADDR) == I2C_SR1_ADDR) {
-      *addresses = address;
-      addresses++;
-    }
-    I2C1->CR1 |= I2C_CR1_STOP;
-    // wait for Start bit off
-    while ((I2C1->SR1 & I2C_SR1_SB) != 0x00)
-      ;
-    address++;
+  for( address = 1; address<255; address++) {
+	BSP_I2c_Start() ;
+	if ( BSP_I2c_Write( address ) ) {
+      addresses[address] = address;
+	} 
+	BSP_I2c_Stop(); 
   }
 }
 
@@ -84,4 +62,34 @@ void BSP_I2c_Init() {
 		
 		I2C1->CR1 |= I2C_CR1_PE ;
 
+}
+
+void BSP_I2c_Start() {
+    // reset SR1 and SR2
+    I2C1->SR1 = 0;
+    I2C1->SR2 = 0;
+    I2C1->CR1 |= I2C_CR1_START;
+    // wait for Start bit
+    while ((I2C1->SR1 & I2C_SR1_SB) != I2C_SR1_SB)
+      ;
+}
+
+void BSP_I2c_Stop() {
+    I2C1->CR1 |= I2C_CR1_STOP;
+    // wait for Start bit off
+    while ((I2C1->SR1 & I2C_SR1_SB) != 0x00)
+      ;
+}
+
+int BSP_I2c_Write( uint8_t data ) {
+    volatile uint16_t SR1 = 0;
+    volatile uint16_t SR2 = 0;
+    // write data
+    I2C1->DR = data ;
+    // read SR1
+    SR1 = I2C1->SR1;
+    // read SR2
+    SR2 = I2C1->SR2;
+    //check if ACK/NACK
+    return ((SR1 & I2C_SR1_ADDR) == I2C_SR1_ADDR) ;
 }
