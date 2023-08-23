@@ -15,6 +15,7 @@ int main()
   printf("--- Demarrage \r\n");
 
 	  BSP_I2c_Scan(addresses);
+
 	  for (uint8_t i = 0; i < 255; i++) {
 		if (addresses[i] != 0) {
 		  printf("Found I2C Slave on: %X\r\n", addresses[i]);
