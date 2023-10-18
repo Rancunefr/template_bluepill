@@ -5,7 +5,7 @@
 int BSP_I2c_write_adress( uint8_t data ) ;
 
 void BSP_I2c_Scan(uint8_t *addresses) { // Adresse écrite sur 7 bits (sans le R/W)
-  uint8_t addr = 1;
+  uint8_t addr ;
   for( addr = 2; (addr<255)&&(addr>1) ; addr+=2) {    // FIXME
 	BSP_I2c_Start() ;
 	if ( BSP_I2c_write_adress( addr ) ) {
@@ -49,11 +49,11 @@ void BSP_I2c_Init() {
 
 		// APB Clock Freq Value
 
-		I2C1->CR2 |= 24 ; 
+		I2C1->CR2 |= 24 ;    // Frequence de APB1 !!
 
 		// Configure the clock control registers
 
-		I2C1->CCR |= 0x78 ;
+		I2C1->CCR |= 0x78 ;	 // Frequence I2C = 120 KHz !!!!
 
 		// Configure the rise time register
 
@@ -86,13 +86,18 @@ void BSP_I2c_Stop() {
 int BSP_I2c_write_adress( uint8_t data ) {
     volatile uint16_t SR1 = 0;
     volatile uint16_t SR2 = 0;
-	uint16_t result ;
+	uint16_t att ;
+
     // write data
     I2C1->DR = data ;
+
+    //check if ACK/NACK
+	for ( att=0; att <= 275; att++ ) 
+		__NOP() ;
+
     // read SR1
     SR1 = I2C1->SR1;
     // read SR2
     SR2 = I2C1->SR2;
-    //check if ACK/NACK
     return (SR1 & I2C_SR1_ADDR)  ; 
 }
